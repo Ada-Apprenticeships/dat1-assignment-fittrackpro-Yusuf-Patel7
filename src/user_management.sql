@@ -11,6 +11,10 @@
 
 -- 2. Update a member's contact information
 -- TODO: Write a query to update a member's contact information
+UPDATE members
+SET phone_number = 555-9876,
+    email = 'emily.jones.updated@email.com'
+    WHERE member_id = 5;
 
 -- 3. Count total number of members
 -- TODO: Write a query to count the total number of members
