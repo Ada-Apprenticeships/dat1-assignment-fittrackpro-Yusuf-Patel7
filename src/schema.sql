@@ -162,5 +162,5 @@ CREATE TABLE equipment_maintenance_log (
 -- `.read data/sample_data.sql` in a sql file or `npm run import` in the terminal
 
 -- Make sure to delete existing database first otherwise setup will cause an error
---.read src/schema.sql 
+--schema.sql 
 --.read scripts/sample_data.sql
