@@ -8,7 +8,10 @@ PRAGMA foreign_keys = ON;
 
 -- 1. Find equipment due for maintenance
 -- TODO: Write a query to find equipment due for maintenance
-SELECT *
+SELECT 
+    equipment_id, 
+    name, 
+    next_maintenance_date
 FROM 
     equipment
 WHERE 

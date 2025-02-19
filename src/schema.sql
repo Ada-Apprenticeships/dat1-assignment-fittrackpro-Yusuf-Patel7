@@ -100,7 +100,7 @@ CREATE TABLE attendance (
     member_id INTEGER,
     location_id INTEGER,
     check_in_time VARCHAR(20) NOT NULL,
-    check_out_time VARCHAR(20) NOT NULL,
+    check_out_time VARCHAR(20),
     FOREIGN KEY (member_id) REFERENCES members(member_id) ON DELETE CASCADE,
     FOREIGN KEY (location_id) REFERENCES locations(location_id) ON DELETE CASCADE
 );

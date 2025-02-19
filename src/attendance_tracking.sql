@@ -9,50 +9,52 @@
 -- 1. Record a member's gym visit
 -- TODO: Write a query to record a member's gym visit
 INSERT INTO attendance (member_id, location_id, check_in_time)
-VALUES (7, 1, CURRENT_TIMESTAMP);
+VALUES (7, 1,DATETIME('now'));
 
 -- 2. Retrieve a member's attendance history
 -- TODO: Write a query to retrieve a member's attendance history
 SELECT 
-    DATE(check_in_time) AS visit_date,  -- Extract visit date from check-in time
-    check_in_time,                       -- Include check-in time
-    check_out_time                       -- Include check-out time
+    DATE(check_in_time) AS visit_date,  
+    check_in_time,                       
+    check_out_time                    
 FROM 
     attendance 
 WHERE 
-    member_id = 5;                      -- Filter by member ID 5
+    member_id = 5;                     
 
 -- 3. Find the busiest day of the week based on gym visits
 -- TODO: Write a query to find the busiest day of the week based on gym visits
 SELECT 
-    DAYOFWEEK(check_in_time) AS day_of_week,  -- Get the day of the week from check-in time
-    COUNT(*) AS visit_count                     -- Count the number of visits for each day
+    strftime('%w', check_in_time) AS day_of_week,  -- Use strftime to get day of the week
+    COUNT(*) AS visit_count                        
 FROM 
     attendance 
 GROUP BY 
-    DAYOFWEEK(check_in_time)                    -- Group by the day of the week
+    day_of_week                                   
 ORDER BY 
-    visit_count DESC                             -- Order results by visit count in descending order
-LIMIT 1;                                       -- Limit to the top result (busiest day)
+    visit_count DESC                               
+LIMIT 1;              
+
 
 -- 4. Calculate the average daily attendance for each location
 -- TODO: Write a query to calculate the average daily attendance for each location
+-- Calculate average daily attendance for each location
 SELECT 
-    l.name AS location_name,                           -- Select location name
-    AVG(daily.visit_count) AS avg_daily_attendance    -- Calculate average daily attendance
+    l.name AS location_name,                         
+    AVG(daily.visit_count) AS avg_daily_attendance  
 FROM 
-    locations l                                       -- From locations table
+    locations l                                     
 JOIN 
     (SELECT 
-         location_id,                                  -- Select location ID
-         DATE(check_in_time) AS visit_date,           -- Extract visit date from check-in time
-         COUNT(*) AS visit_count                       -- Count visits for each location on each date
+         location_id,                               
+         DATE(check_in_time) AS visit_date,        
+         COUNT(*) AS visit_count                      
      FROM 
          attendance 
      GROUP BY 
-         location_id,                                  -- Group by location ID
-         DATE(check_in_time)) daily                    -- Group by visit date as well
+         location_id,                               
+         DATE(check_in_time)) daily                  
 ON 
-    l.location_id = daily.location_id                -- Join the subquery on location ID
+    l.location_id = daily.location_id              
 GROUP BY 
-    l.location_id;                                   -- Group final results by location ID
+    l.location_id;                                                                 

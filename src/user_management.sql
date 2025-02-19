@@ -31,7 +31,7 @@ WHERE
 -- 3. Count total number of members
 -- TODO: Write a query to count the total number of members
 SELECT 
-    COUNT(*) AS total_members                         -
+    COUNT(*) AS total_members                      
 FROM 
     members;                                        
 
@@ -80,5 +80,5 @@ FROM
 LEFT JOIN 
     class_attendance ca ON m.member_id = ca.member_id 
 WHERE 
-    ca.attendance_status = 'Attended';              
+    ca.attendance_status = 'Attended';                 -- Filter for members who attended at least one class
 
